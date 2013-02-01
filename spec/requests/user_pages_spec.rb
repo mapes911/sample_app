@@ -45,6 +45,11 @@ describe "User pages" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
+
+        it "should not be able to delete themselves" do
+          expect { delete user_path(admin) }.to_not change(User, :count) 
+        end
+
       end
     end
 
@@ -77,7 +82,7 @@ describe "User pages" do
         fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
         fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: ""
+        fill_in "Confirm Password", with: ""
       end
 
       # make sure that a form that fails does not change our user count
@@ -96,7 +101,7 @@ describe "User pages" do
 
       describe "after submission - no password" do
         before do
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           fill_in "Password",     with: ""
           click_button submit
         end
@@ -109,7 +114,7 @@ describe "User pages" do
 
       describe "after submission - password too short" do
         before do
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           fill_in "Password",     with: "foo"
           click_button submit
         end
@@ -122,7 +127,7 @@ describe "User pages" do
 
       describe "after submission - no name" do
         before do
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           fill_in "Name",     with: ""
           click_button submit
         end
@@ -135,7 +140,7 @@ describe "User pages" do
 
       describe "after submission - no email" do
         before do
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           fill_in "Email",     with: ""
           click_button submit
         end
@@ -148,7 +153,7 @@ describe "User pages" do
 
       describe "after submission - invalid email" do
         before do
-          fill_in "Confirmation", with: "foobar"
+          fill_in "Confirm Password", with: "foobar"
           fill_in "Email",     with: "myemail is awesome"
           click_button submit
         end
@@ -166,7 +171,7 @@ describe "User pages" do
         fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
         fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+        fill_in "Confirm Password", with: "foobar"
       end
 
       it "should create a user" do

@@ -25,6 +25,9 @@ describe "Authentication" do
         before { click_link "Home" }
         it { should_not have_error_message('') }
       end
+
+      it { should_not have_link('Profile') }
+      it { should_not have_link('Settings') }
     end
 
     describe "with valid information" do
@@ -41,6 +44,25 @@ describe "Authentication" do
       it { should_not have_link('Sign in', href: signin_path) }
     end
 
+    describe "try to access User#new or User#create action" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { sign_in(user) }
+
+      describe "access User#new" do
+        before { visit signup_path }
+
+        it { should_not have_title(full_title('Sign up')) }
+        it { should have_title('') }
+      end
+      
+      describe "access User#create" do
+        before { post users_path }
+
+        it { should_not have_title(full_title('Sign up')) }
+        it { should have_title('') }
+      end
+
+    end
   end
 
   describe "authorization" do
@@ -79,6 +101,21 @@ describe "Authentication" do
           it "should render the desired protected page" do
             page.should have_title('Edit user')
           end
+
+          describe "when signing in again" do
+            before do
+              delete signout_path
+              visit signin_path
+              fill_in "Email",    with: user.email
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end
+
+            it "should render the default (profile) page" do
+              page.should have_title(user.name) 
+            end
+          end
+
         end
       end
 
@@ -111,7 +148,7 @@ describe "Authentication" do
         specify { response.should redirect_to(root_path) }        
       end
     end
-    
+
   end
 
 end
