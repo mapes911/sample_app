@@ -1,0 +1,10 @@
+<% provide(:title, 'Latest Shared Experiences') %>
+<h1>Latest Shared Experiences</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @experiences %>
+</ul>
+
+<%= will_paginate %>

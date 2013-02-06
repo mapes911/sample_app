@@ -1,0 +1,10 @@
+<%= form_for(@experience) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label "Some nice descriptive text here about what this 'title' thing really is" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create Experience", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

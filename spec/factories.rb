@@ -15,4 +15,9 @@ FactoryGirl.define do
     user
   end
 
+  factory :experience do
+    title "Lorem ipsum"
+    user
+  end
+
 end

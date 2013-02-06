@@ -38,6 +38,7 @@ describe "Authentication" do
 
       it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile', href: user_path(user)) }
+      it { should have_link('New Experience', href: new_experience_path)}
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
 
@@ -155,6 +156,19 @@ describe "Authentication" do
         end
       end
       
+      describe "in the Experiences controller" do
+
+        describe "submitting to the create action" do
+          before { post experiences_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete experience_path(FactoryGirl.create(:experience)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
+
     end
 
     describe "as wrong user" do
