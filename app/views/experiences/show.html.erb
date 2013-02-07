@@ -1,19 +1,41 @@
 <% provide(:title, @experience.title) %>
-<div class="row">
 
-  <aside class="span4">
+<div class="row-fluid">
+  <div class="span3">
     <section>
       <h1>
         <%= gravatar_for @experience.user %>
         <%= @experience.user.name %>
       </h1>
     </section>
-  </aside>
 
-  <div class="span8">
+    <% if @experience.chapters.any? %>
+      <h3>Table of Contents</h3>
+      <ol class="chapters">
+        <!-- why does this each loop give me an extra iteration? -->
+        <% @experience.chapters.each do |chapter| %>
+          <li><%= link_to chapter.title, experience_path(@experience.id, :anchor => chapter.id) %></li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+  <div class="span9">
     <section>
       <h1><%= @experience.title %></h1>
     </section>
-  </div>
 
+    <section>
+      <% @experience.chapters.each do |chapter | %>
+
+        <!-- cheesy 80's style anchor links just for something to be there for the Table of Contents -->
+        <h3><a id="<%= chapter.id %>"><%= chapter.title %></a></h3>
+        <%= simple_format(chapter.body) %>
+
+      <% end %>
+
+    </section>
+
+    <%= render partial: 'chapters/form' %>
+  </div>
 </div>
+

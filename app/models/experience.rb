@@ -1,6 +1,7 @@
 class Experience < ActiveRecord::Base
   attr_accessible :title
   belongs_to :user
+  has_many :chapters, dependent: :destroy
 
   # filters
   before_create :create_slug

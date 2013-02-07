@@ -6,15 +6,9 @@ class ExperiencesController < ApplicationController
     @experiences = Experience.paginate(page: params[:page])
   end
 
-  # GET /experiences/1
-  # GET /experiences/1.json
   def show
     @experience = Experience.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @experience }
-    end
+    @chapter = @experience.chapters.build if signed_in?
   end
 
   # GET /experiences/new

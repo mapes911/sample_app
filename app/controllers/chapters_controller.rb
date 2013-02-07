@@ -40,17 +40,14 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(params[:chapter])
-
-    respond_to do |format|
-      if @chapter.save
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
-        format.json { render json: @chapter, status: :created, location: @chapter }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @chapter.errors, status: :unprocessable_entity }
-      end
+    @experience = Experience.find(params[:experience_id])
+    @chapter = @experience.chapters.build(params[:chapter])
+    if @chapter.save
+      flash[:success] = "New Chapter created!!"
     end
+    # for now we always redirect back to the experience page
+    # this will not be when we go to an ajax creation
+    redirect_to @experience
   end
 
   # PUT /chapters/1

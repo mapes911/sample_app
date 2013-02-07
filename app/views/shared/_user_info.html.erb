@@ -10,3 +10,11 @@
 <span>
   <%= pluralize(current_user.microposts.count, "micropost") %>
 </span>
+
+<!-- <span>
+  <ol>
+  <% current_user.microposts.each do |post| %>
+    <li><%= post.id %></li>
+  <% end %>
+</ol>
+</span> -->
