@@ -43,7 +43,10 @@ describe "Experiences" do
 
     describe "with valid information" do
 
-      before { fill_in 'experience_title', with: "Lorem ipsum" }
+      before do 
+        fill_in 'experience_title', with: "Lorem ipsum" 
+        fill_in 'experience_moral', with: "Lorem ipsum" 
+      end
       it "should create an experience" do
         expect { click_button "Create Experience" }.to change(Experience, :count).by(1)
       end

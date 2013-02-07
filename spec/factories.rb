@@ -17,6 +17,7 @@ FactoryGirl.define do
 
   factory :experience do
     title "Lorem ipsum"
+    moral "Lorem ipsum"
     user
   end
 

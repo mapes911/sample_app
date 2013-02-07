@@ -3,11 +3,15 @@ require 'spec_helper'
 describe Experience do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @experience = user.experiences.build(title: "I sailed across the Atlantic in a small craft") }
+  before { @experience = user.experiences.build(
+    title: "I sailed across the Atlantic in a small craft",
+    moral: "I learned so much about who I am"
+  ) }
 
   subject { @experience }
 
   it { should respond_to(:title) }
+  it { should respond_to(:moral) }
   it { should respond_to(:user_id) }
   it { should respond_to("user") }
   its (:user) { should == user }
@@ -34,6 +38,16 @@ describe Experience do
 
   describe "with title that is too long" do
     before { @experience.title = "a" * 301 }
+    it { should_not be_valid }
+  end
+
+  describe "with blank moral" do
+    before { @experience.moral = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with moral that is too long" do
+    before { @experience.moral = "a" * 301 }
     it { should_not be_valid }
   end
 
