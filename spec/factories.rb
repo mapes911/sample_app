@@ -10,11 +10,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :micropost do
-    content "Lorem ipsum"
-    user
-  end
-
   factory :experience do
     title "Lorem ipsum"
     moral "Lorem ipsum"

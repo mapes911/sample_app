@@ -1,13 +1,16 @@
 <% provide(:title, 'Latest Shared Experiences') %>
-<h1>Latest Shared Experiences</h1>
-
-<%= will_paginate %>
+<div class="row">
+  <div class="span8">
+    <h1>Latest Shared Experiences</h1>
+  </div>
+</div>
 
 <div class="row">
-  <div class="span8 offset3">
+  <div class="span8">
+    <%= will_paginate %>
     <ul class="users">
       <%= render @experiences %>
     </ul>
+    <%= will_paginate %>
   </div>
 </div>
-<%= will_paginate %>

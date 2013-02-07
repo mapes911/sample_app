@@ -12,7 +12,8 @@ class Experience < ActiveRecord::Base
   validates :moral, presence: true, length: { maximum: 300 }
 
   def create_slug
-    self.slug = self.title.parameterize
+    # dunno if this is the right way to go yet. will tackle this after.
+    # self.slug = self.title.parameterize
   end
 
   def chapter_list
